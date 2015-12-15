@@ -60,6 +60,8 @@ router.post('/login', function (req, res, next) {
       }
       if (!user)
         return res.json({ result: false, message: 'No user found with that email id', data: null });
+      if (user.password != req.body.password)
+        return res.json({ result: false, message: 'Incorrect email or password', data: null });
       req.session.user = { email: user.email, _id: user._id };
       return res.json({ result: false, message: 'Login successfull', data: null });
     });
